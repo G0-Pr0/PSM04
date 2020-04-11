@@ -24,7 +24,6 @@
   var firestore = firebase.firestore();
 
   const docRef = firestore.doc("books/booksDetails");
-  const outputHeader = document.querySelector("#instruction");
   const inputTextAuthorName = document.querySelector("#authorName");
   const inputTextBookTitle = document.querySelector("#bookTitle");
   const inputTextBookType = document.querySelector("#bookType");
@@ -59,6 +58,8 @@
         myData.bookType + "\n" + myData.bookYear + "\n" + myData.isbn;
       }
       
+    }).then(function() {
+      console.log("details loaded!");
     }).catch(function (error){
       console.log("got an error: ", error);
     });
