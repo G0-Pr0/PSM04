@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title> My book </title>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>    
+</head>
+
+
+<body>
+<h2 id="outputFromDatabase"></h2>
+</body>
+
+<script>
+
+var firebaseConfig = {
+    apiKey: "AIzaSyCoMy453eGfkoDV44VQ3Vtm0VlEzCIcCeY",
+    authDomain: "fir-mobile-services.firebaseapp.com",
+    databaseURL: "https://fir-mobile-services.firebaseio.com",
+    projectId: "fir-mobile-services",
+    storageBucket: "fir-mobile-services.appspot.com",
+    messagingSenderId: "274365511607",
+    appId: "1:274365511607:web:5eb4e871e104fa6be35a32"
+  };
+  // Initialize Firebase//
+  firebase.initializeApp(firebaseConfig);
+
+  var firestore = firebase.firestore();
+
+  const docRef = firestore.doc("books/mostLikedBook");
+
+    docRef.get().then(function(doc) {
+      if (doc && doc.exists){
+        const myData = doc.data();
+        outputFromDatabase.innerText = myData.authorName + "\n" + myData.bookTitle + "\n" +
+        myData.bookType + "\n" + myData.bookYear + "\n" + myData.ISBN;
+        }
+    })
+    
+
+</script>
+
+
+</html>

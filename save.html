@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <title> save.html </title>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>    
+    <script src="https:/ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+    <h1>Please check console for data which was saved to firestore</h1>
+ <script>
+     // Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyCoMy453eGfkoDV44VQ3Vtm0VlEzCIcCeY",
+    authDomain: "fir-mobile-services.firebaseapp.com",
+    databaseURL: "https://fir-mobile-services.firebaseio.com",
+    projectId: "fir-mobile-services",
+    storageBucket: "fir-mobile-services.appspot.com",
+    messagingSenderId: "274365511607",
+    appId: "1:274365511607:web:5eb4e871e104fa6be35a32"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  var db = firebase.firestore();
+
+  //const docRef = firestore.collection("books");
+
+  $.ajax({
+    url: 'https://raw.githubusercontent.com/G0-Pr0/PSM04/master/MOCK_DATA.json',
+    dataType: 'json',
+    type: 'get',
+    cache: false,
+    success: function(data) {
+        $(data).each(function(index, value){
+            /*>console.log(value);
+            remove this to not be as comment to show in console what is being added to firestore*/
+            db.collection('books').doc(value.isbn).set({
+                authorName: value.authorName,
+                bookTitle: value.bookTitle,
+                bookType: value.bookType,
+                bookYear: value.bookYear,
+                isbn: value.isbn
+            })
+        })
+    }
+}).then (function(){
+    console.log("MOCK_DATa.json file content was added to firestore database")
+})
+</script>
+   
+</body>
+
+
+
+</html>

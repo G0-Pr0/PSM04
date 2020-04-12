@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <title> read.html </title>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>    
+    <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyCoMy453eGfkoDV44VQ3Vtm0VlEzCIcCeY",
+        authDomain: "fir-mobile-services.firebaseapp.com",
+        databaseURL: "https://fir-mobile-services.firebaseio.com",
+        projectId: "fir-mobile-services",
+        storageBucket: "fir-mobile-services.appspot.com",
+        messagingSenderId: "274365511607",
+        appId: "1:274365511607:web:5eb4e871e104fa6be35a32"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    
+      var firestore = firebase.firestore();
+
+    </script>
+</head>
+
+
+<body>
+    <table id="book_table" border="2" cellpadding="10" style="border-collapse:collapse;">
+        <thead>
+            <th>authorName</th>
+            <th>bookTitle</th>
+            <th>bookType</th>
+            <th>BookYear</th>
+            <th>isbn</th>
+        </thead>
+
+    </table>
+
+
+    <script>
+        firestore.collection('books').get().then((snapshot) => {
+                snapshot.docs.forEach(doc => {
+                    renderBook(doc);
+                })
+            })
+
+            const booksList = document.querySelector('#book_table') ;
+            function renderBook(doc){
+                let tr = document.createElement('tr');
+                let td_authorName = document.createElement('td');
+                let td_bookTitle = document.createElement('td');
+                let td_bookType = document.createElement('td');
+                let td_bookYear = document.createElement('td');
+                let td_isbn = document.createElement('td');
+
+
+                tr.setAttribute('data-id', doc.id);
+                td_authorName.textContent = doc.data().authorName;
+                td_bookTitle.textContent = doc.data().bookTitle;
+                td_bookType.textContent = doc.data().bookType;
+                td_bookYear.textContent = doc.data().bookYear;
+                td_isbn.textContent = doc.data().isbn;
+
+                tr.appendChild(td_authorName);
+                tr.appendChild(td_bookTitle);
+                tr.appendChild(td_bookType);
+                tr.appendChild(td_bookYear);
+                tr.appendChild(td_isbn);
+
+                booksList.appendChild(tr);
+
+            }
+
+    </script>
+</body>
+
+
+
+</html>
